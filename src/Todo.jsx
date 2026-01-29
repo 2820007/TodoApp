@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { TodoContext } from "./context/TodoProvider";
+import { useNavigate } from "react-router-dom";
 
 function Todo() {
   const [todo, setTodo] = useState("");
   const [todoError, setTodoError] = useState("");
   const { state, dispatch } = useContext(TodoContext);
+  const navigate=useNavigate()
   const addTodo = () => {
     if (todo.length <= 0) {
       setTodoError("Most Be Some characters in the input field !* ");
@@ -83,13 +85,7 @@ function Todo() {
                     </button>
                     <button
                       onClick={() => {
-                        dispatch({
-                          type: "updateTodo",
-                          payload: {
-                            id: item.id,
-                            title: "New Title",
-                          },
-                        });
+                        navigate("/editTodo",{state:item})
                       }}
                       className="bg-green-500 p-2  rounded-xl  text-white cursor-pointer  "
                     >
